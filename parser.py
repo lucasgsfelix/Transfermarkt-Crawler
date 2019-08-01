@@ -58,4 +58,4 @@ def retrieve_in_tags(start_token, end_token, page):
 
 def remove_token(values, tokens):
     """ Remove a list of tokens from list. """
-    return list(filter(lambda x: x not in tokens, value))
+    return list(filter(lambda x: x not in tokens, values))
