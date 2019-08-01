@@ -1,0 +1,12 @@
+Name
+Full Name
+Birth Date
+Age
+Height
+Country
+Position(s)
+Foot
+Agent
+Club
+Joined
+Contract Lenght

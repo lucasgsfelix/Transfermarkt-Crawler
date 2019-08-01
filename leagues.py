@@ -1,4 +1,4 @@
-""" Crawler the leagues from Transfermarkt Module """
+""" Crawler the leagues from Transfermarkt. """
 import re
 import parser
 
@@ -19,5 +19,5 @@ def get_league_teams(league_link):
 
     clubs_name = parser.remove_token(clubs_name, ['\n', 'Club'])
 
-    return {int(clubs_id[index]) : name for index,
-                  name in enumerate(clubs_name)}
+    return {int(clubs_id[index]): name for index,
+            name in enumerate(clubs_name)}

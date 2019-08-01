@@ -12,8 +12,8 @@ def file_read(file):
 
 def get_page(link):
     """ Download and return a web page. """
-
-    link = link.split('https://')[1] # removing https token
+    if "https://" in link:
+        link = link.split('https://')[1]
 
     os.system('wget -O file.html ' + link + " --quiet")
     file_data = file_read('file.html')
@@ -51,13 +51,15 @@ def retrieve_in_tags(start_token, end_token, page):
     end_pos = [(a.start()) for a in list(re.finditer(end_token, page))]
 
     # Gives a dictionary with key start position and value end position
-    positions = {start_pos[index]: e for index, e in enumerate(end_pos)}
+    positions = {s: end_pos[index] for index, s in enumerate(start_pos)}
 
     return list(map(lambda x: page[x:positions[x]], positions))
+
 
 def remove_token(values, tokens):
     """ Remove a list of tokens from list. """
     return list(filter(lambda x: x not in tokens, values))
+
 
 def team_link_assemble(team_name, team_id, season):
     """ Mount a link of a team getting the with it transfers. """
@@ -71,6 +73,7 @@ def team_link_assemble(team_name, team_id, season):
     detailed = "/pos//detailpos/0/w_s//plus/1#zugaenge"
 
     return link + club + season + detailed
+
 
 def player_link_assemble(player_name, player_id):
     """ Mount a link of a player getting his history"""
