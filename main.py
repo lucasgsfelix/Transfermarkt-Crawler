@@ -1,4 +1,10 @@
-""" Main module of Transfermarket Crawler """
+""" Main module of Transfermarket Crawler
+
+    Given a league link, this crawler will get:
+        - The teams of each season
+        - The players of each team at each season
+        - The historic of each player player
+"""
 
 import parser
 import leagues

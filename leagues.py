@@ -18,7 +18,6 @@ def get_league_teams(league_link):
     clubs_id = list(filter(lambda x: re.match(r'\d', x), clubs_id))
 
     clubs_name = parser.remove_token(clubs_name, ['\n', 'Club'])
-    clubs_info = {int(clubs_id[index]) : name for index,
-                  name in enumerate(clubs_name)}
 
-    return clubs_info
+    return {int(clubs_id[index]) : name for index,
+                  name in enumerate(clubs_name)}

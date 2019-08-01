@@ -1,7 +1,6 @@
 """ Parser Module for Transfermarkt Crawler."""
 import os
 import re
-import time
 
 
 def file_read(file):
@@ -59,3 +58,23 @@ def retrieve_in_tags(start_token, end_token, page):
 def remove_token(values, tokens):
     """ Remove a list of tokens from list. """
     return list(filter(lambda x: x not in tokens, values))
+
+def team_link_assemble(team_name, team_id, season):
+    """ Mount a link of a team getting the with it transfers. """
+
+    link = "transfermarkt.com/" + team_name.replace(' ', '-')
+
+    club = "/transfers/verein/" + str(team_id)
+
+    season = "/saison_id/" + str(season)
+
+    detailed = "/pos//detailpos/0/w_s//plus/1#zugaenge"
+
+    return link + club + season + detailed
+
+def player_link_assemble(player_name, player_id):
+    """ Mount a link of a player getting his history"""
+
+    link = "transfermarkt.com/" + player_name.replace(' ', '-')
+
+    return link + "/profil/spieler/" + str(player_id)
