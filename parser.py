@@ -115,9 +115,8 @@ def retrieve_in_tags(start_token, end_token, page):
         pages[index] = parse_in_tags(pag)
 
     if len(set(pages)) > 1:
-        return set(pages)
-
-    return pages[-1]
+        return pages
+    return pages[0]
 
 
 def remove_token(values, tokens):

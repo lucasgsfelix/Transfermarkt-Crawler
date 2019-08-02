@@ -2,7 +2,7 @@
 import parser
 
 
-def get_player(player_name, player_id):
+def get_player_info(player_name, player_id):
     """ Get the information about a player. """
 
     link = parser.player_link_assemble(player_name, player_id)
@@ -48,3 +48,9 @@ def get_player(player_name, player_id):
 
     player_info['Outfiter'] = parser.retrieve_in_tags("Outfitter:",
                                                       "</td>", player_page)
+
+    get_player_transfer(player_page)
+
+
+def get_player_transfer(player_page):
+    """ Get the transfers made along a player career. """
