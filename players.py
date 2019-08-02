@@ -7,11 +7,43 @@ def get_player(player_name, player_id):
 
     link = parser.player_link_assemble(player_name, player_id)
     player_page = parser.get_page(link)
-    player_keys = parser.file_read("Input/players_keys.txt").split("\n")
-    player_info = {key: None for key in player_keys}
+    player_info = {}
 
-    player_info['Name'] = player_name
+    player_info['Name'] = player_name.replace('-', ' ').capitalize()
+
     player_info['Full Name'] = parser.retrieve_in_tags("Full Name:</th>",
                                                        "</td>", player_page)
+
     player_info['Birth Date'] = parser.retrieve_in_tags("Date of Birth:",
                                                         "</a>", player_page)
+
+    player_info['Birth Place'] = parser.retrieve_in_tags('"birthPlace">',
+                                                         '</span>', player_page)
+
+    player_info['Nationality'] = parser.retrieve_in_tags('itemprop="nationality">',
+                                                         '</span>', player_page)
+
+    player_info['Age'] = parser.retrieve_in_tags("Age:</th>", "</td>",
+                                                 player_page)
+
+    player_info['Height'] = parser.retrieve_in_tags('itemprop="height"',
+                                                    '</span>', player_page)
+
+    player_info['Position(s)'] = parser.retrieve_in_tags("Position:</span>",
+                                                         "</p>", player_page)
+
+    player_info['Foot'] = parser.retrieve_in_tags("Foot:",
+                                                  "</td>", player_page)
+
+    player_info['Agent'] = parser.retrieve_in_tags("Player Agents:",
+                                                   "</a>", player_page)
+
+    player_info['Joined'] = parser.retrieve_in_tags("Joined:</span>",
+                                                    "</span>", player_page)
+
+    player_info['Contract Length'] = parser.retrieve_in_tags("Contract until:</span>",
+                                                             '</span>', player_page)
+
+    player_info['Outfiter'] = parser.retrieve_in_tags("Outfitter:",
+                                                      "</td>", player_page)
+    print(player_info)

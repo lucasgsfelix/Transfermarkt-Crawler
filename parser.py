@@ -38,6 +38,52 @@ def cut_page(start_token, end_token, page):
 
     return page[start_pos:end_pos]
 
+def _match_positions(start_list, end_list):
+    """ Match start and end positions. """
+
+    if len(start_list) == 1: # only one position
+        value = start_list[0]
+        return {value : list(filter(lambda x: value < x, end_list))[0]}
+
+    result = {}
+    for start in start_list:
+        for end in end_list:
+            if start < end:
+                result[start] = end
+                break
+
+    return result
+
+def remove_tokens(page, tokens):
+    """ Remove tokens from the page. """
+    for token in tokens:
+        page = list(filter((token).__ne__, page))
+
+    
+    if re.match(r' +', ''.join(page)):
+        return ''
+
+    return ''.join(page)
+
+def parse_in_tags(page):
+    """ Parse between > and < tags. """
+
+    if '>' in page:
+        pages = []
+        start_pos = [(a.end()) for a in list(re.finditer('>', page))]
+        for pos in start_pos:
+            aux = pos
+            while aux <= len(page)-1 and page[aux] != '<':
+                aux += 1
+            pages.append(page[pos:aux])
+
+        for index, pag in enumerate(pages):
+            pages[index] = remove_tokens(pag, ['\t', '\n', '<', '>', ''])
+
+
+        return ''.join(pages)
+
+    return page
 
 def retrieve_in_tags(start_token, end_token, page):
     """ Retrieve between tags.
@@ -48,12 +94,21 @@ def retrieve_in_tags(start_token, end_token, page):
         return parsed values
     """
     start_pos = [(a.end()) for a in list(re.finditer(start_token, page))]
+
+    if not start_pos:
+        return None
+
     end_pos = [(a.start()) for a in list(re.finditer(end_token, page))]
 
-    # Gives a dictionary with key start position and value end position
-    positions = {s: end_pos[index] for index, s in enumerate(start_pos)}
+    positions = _match_positions(start_pos, end_pos)
 
-    return list(map(lambda x: page[x:positions[x]], positions))
+    pages = list(map(lambda x: page[x:positions[x]], positions))
+
+    for index, pag in enumerate(pages):
+        pages[index] = parse_in_tags(pag)
+
+
+    return pages
 
 
 def remove_token(values, tokens):
