@@ -59,9 +59,13 @@ def remove_tokens(page, tokens):
     for token in tokens:
         page = list(filter((token).__ne__, page))
 
-    
-    if re.match(r' +', ''.join(page)):
-        return ''
+    if '  ' in ''.join(page):
+        text_aux = ''
+        for pag in ''.join(page).split(' '):
+            if pag:
+                text_aux += pag + ' '
+
+        return ''.join(text_aux[:-1])
 
     return ''.join(page)
 

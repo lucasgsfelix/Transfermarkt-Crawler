@@ -46,4 +46,3 @@ def get_player(player_name, player_id):
 
     player_info['Outfiter'] = parser.retrieve_in_tags("Outfitter:",
                                                       "</td>", player_page)
-    print(player_info)
