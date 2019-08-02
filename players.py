@@ -11,6 +11,8 @@ def get_player(player_name, player_id):
 
     player_info['Name'] = player_name.replace('-', ' ').capitalize()
 
+    player_info['Id'] = player_id
+
     player_info['Full Name'] = parser.retrieve_in_tags("Full Name:</th>",
                                                        "</td>", player_page)
 
