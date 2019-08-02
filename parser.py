@@ -38,12 +38,13 @@ def cut_page(start_token, end_token, page):
 
     return page[start_pos:end_pos]
 
+
 def _match_positions(start_list, end_list):
     """ Match start and end positions. """
 
-    if len(start_list) == 1: # only one position
+    if len(start_list) == 1:
         value = start_list[0]
-        return {value : list(filter(lambda x: value < x, end_list))[0]}
+        return {value: list(filter(lambda x: value < x, end_list))[0]}
 
     result = {}
     for start in start_list:
@@ -53,6 +54,7 @@ def _match_positions(start_list, end_list):
                 break
 
     return result
+
 
 def remove_tokens(page, tokens):
     """ Remove tokens from the page. """
@@ -69,6 +71,7 @@ def remove_tokens(page, tokens):
 
     return ''.join(page)
 
+
 def parse_in_tags(page):
     """ Parse between > and < tags. """
 
@@ -84,10 +87,10 @@ def parse_in_tags(page):
         for index, pag in enumerate(pages):
             pages[index] = remove_tokens(pag, ['\t', '\n', '<', '>', ''])
 
-
         return ''.join(pages)
 
     return page
+
 
 def retrieve_in_tags(start_token, end_token, page):
     """ Retrieve between tags.
@@ -110,7 +113,6 @@ def retrieve_in_tags(start_token, end_token, page):
 
     for index, pag in enumerate(pages):
         pages[index] = parse_in_tags(pag)
-
 
     return pages
 
