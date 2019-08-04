@@ -16,7 +16,7 @@ if __name__ == '__main__':
     SEASON_END = 2019
 
     for league in parser.file_read("Input/leagues.txt").split('\n'):
-        teams = leagues.get_league_teams(league)
+        teams = leagues.get_teams(league)
         print(teams)
         exit()
 

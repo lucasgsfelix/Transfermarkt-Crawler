@@ -3,7 +3,7 @@ import re
 import parser
 
 
-def get_league_teams(league_link):
+def get_teams(league_link):
     """ Return all the teams of a given league. """
     league_page = parser.get_page(league_link)
 

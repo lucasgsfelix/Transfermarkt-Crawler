@@ -3,10 +3,10 @@ import os
 import re
 
 
-def file_read(file):
+def file_read(file_name):
     """ Read files function. """
 
-    with open(file) as file_data:
+    with open(file_name) as file_data:
         return file_data.read()
 
 
