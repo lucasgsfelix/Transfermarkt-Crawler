@@ -54,3 +54,7 @@ def get_player_info(player_name, player_id):
 
 def get_player_transfer(player_page):
     """ Get the transfers made along a player career. """
+    player_page = parser.cut_page('<div class="box transferhistorie">',
+                                  "</tfoot>", player_page)
+    fee_tag = "zelle-abloese"
+    market_value_tag = "zelle-mw"
