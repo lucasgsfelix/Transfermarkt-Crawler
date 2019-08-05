@@ -31,12 +31,15 @@ def cut_page(start_token, end_token, page):
 
         return cut of the page
     """
-    start_pos = [(a.end()) for a in list(re.finditer(start_token, page))][0]
-    end_pos = [(a.start()) for a in list(re.finditer(end_token, page))]
+    start_pos = [(a.end()) for a in list(re.finditer(start_token, page))]
+    if start_pos:
 
-    end_pos = list(filter(lambda x: x > start_pos, end_pos))[0]
+        end_pos = [(a.start()) for a in list(re.finditer(end_token, page))]
+        end_pos = list(filter(lambda x: x > start_pos, end_pos))[0]
 
-    return page[start_pos:end_pos]
+        return page[start_pos:end_pos]
+
+    return page
 
 
 def _match_positions(start_list, end_list):
