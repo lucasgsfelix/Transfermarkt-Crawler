@@ -92,7 +92,7 @@ def parse_in_tags(page):
     return page
 
 
-def retrieve_in_tags(start_token, end_token, page):
+def retrieve_in_tags(start_token, end_token, page, parse=True):
     """ Retrieve between tags.
 
         Given a start_token and a end_token, will retrieve
@@ -111,12 +111,15 @@ def retrieve_in_tags(start_token, end_token, page):
 
     pages = list(map(lambda x: page[x:positions[x]], positions))
 
-    for index, pag in enumerate(pages):
-        pages[index] = parse_in_tags(pag)
+    if parse:
+        for index, pag in enumerate(pages):
+            pages[index] = parse_in_tags(pag)
 
-    if len(set(pages)) > 1:
-        return pages
-    return pages[0]
+        if len(set(pages)) > 1:
+            return pages
+        return pages[0]
+
+    return pages
 
 
 def remove_token(values, tokens):

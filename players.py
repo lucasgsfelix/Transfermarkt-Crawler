@@ -1,5 +1,6 @@
 """ Crawler the players from Transfermarkt. """
 import parser
+from collections import OrderedDict
 
 
 def get_player_info(player_name, player_id):
@@ -7,7 +8,10 @@ def get_player_info(player_name, player_id):
 
     link = parser.player_link_assemble(player_name, player_id)
     player_page = parser.get_page(link)
+
     player_info = {}
+
+    player_info['Transfers'] = get_player_transfer(player_page)
 
     player_info['Name'] = player_name.replace('-', ' ').capitalize()
 
@@ -49,12 +53,32 @@ def get_player_info(player_name, player_id):
     player_info['Outfiter'] = parser.retrieve_in_tags("Outfitter:",
                                                       "</td>", player_page)
 
-    get_player_transfer(player_page)
+    return player_info
 
 
 def get_player_transfer(player_page):
     """ Get the transfers made along a player career. """
     player_page = parser.cut_page('<div class="box transferhistorie">',
                                   "</tfoot>", player_page)
-    fee_tag = "zelle-abloese"
-    market_value_tag = "zelle-mw"
+    pages = parser.retrieve_in_tags('<tr class="zeile-transfer" >', '</tr>',
+                                    player_page, False)
+    transfers = []
+    for page in pages:
+        info = {}
+        info['Season'] = parser.retrieve_in_tags(
+            'class="zentriert hide-for-small"', '</td>', page)[0]
+        info['Fee'] = parser.retrieve_in_tags('zelle-abloese', '<', page)
+        info['Market Value'] = parser.retrieve_in_tags('zelle-mw', '<', page)
+        clubs_name = parser.retrieve_in_tags('vereinsname', '</a>', page)
+
+        # make a set without sorting the list
+        clubs_id = list(OrderedDict.fromkeys(parser.retrieve_in_tags(
+            'id="', '"', page)))
+
+        # The even values are the teams nickname
+        info['Team A'], info['Team B'] = clubs_name[1], clubs_name[3]
+
+        info['ID Team A'], info['ID Team B'] = clubs_id[0], clubs_id[1]
+        transfers.append(info)
+
+    return transfers
