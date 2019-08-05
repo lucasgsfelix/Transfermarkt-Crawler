@@ -19,6 +19,8 @@ def get_players(team_name, team_id, season):
 
     players_id = list(filter(lambda x: re.match(r'\d', x), players_id))
     players_name = parser.remove_token(players_name, ['\n'])
+    players_name = list(map(lambda x: re.sub(r'^[0-9()]*', '', x),
+                            players_name))
 
     return {int(players_id[index]): name for index,
             name in enumerate(players_name)}
