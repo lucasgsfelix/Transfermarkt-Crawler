@@ -33,7 +33,7 @@ if __name__ == '__main__':
                 for player in team_players:
 
                     players_info.append(players.get_player_info(
-                                                player, team_players[player]))
+                                                team_players[player], player))
 
                 seasons.append({season: players_info})
 

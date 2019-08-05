@@ -153,4 +153,5 @@ def file_write(file_name, team_info):
     """ Write a file with team info. """
 
     with open(file_name, 'a') as write_file:
-        pass
+        print(team_info)
+        exit()
