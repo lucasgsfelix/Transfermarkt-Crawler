@@ -8,7 +8,8 @@
 
 import parser
 import leagues
-
+import players
+import teams
 
 if __name__ == '__main__':
 
@@ -16,9 +17,24 @@ if __name__ == '__main__':
     SEASON_END = 2019
 
     for league in parser.file_read("Input/leagues.txt").split('\n'):
-        teams = leagues.get_teams(league)
-        print(teams)
-        exit()
 
-    for season in range(SEASON_START, SEASON_END):
-        pass
+        league_teams = leagues.get_teams(league)
+
+        for team in league_teams:
+
+            seasons = []  # new list of seasons of a team
+
+            for season in range(SEASON_START, SEASON_END):
+
+                team_players = teams.get_players(league_teams[team],
+                                                 team, season)
+                players_info = []  # new list of player for each season
+
+                for player in team_players:
+
+                    players_info.append(players.get_player_info(
+                                                player, team_players[player]))
+
+                seasons.append({season: players_info})
+
+            parser.file_write("Output/teams_output.txt", {team: seasons})

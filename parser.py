@@ -130,7 +130,7 @@ def remove_token(values, tokens):
 def team_link_assemble(team_name, team_id, season):
     """ Mount a link of a team getting the with it transfers. """
 
-    link = "transfermarkt.com/" + team_name.replace(' ', '-')
+    link = "transfermarkt.com/" + team_name.replace(' ', '-').lower()
 
     club = "/transfers/verein/" + str(team_id)
 
@@ -147,3 +147,10 @@ def player_link_assemble(player_name, player_id):
     link = "transfermarkt.com/" + player_name.replace(' ', '-')
 
     return link + "/profil/spieler/" + str(player_id)
+
+
+def file_write(file_name, team_info):
+    """ Write a file with team info. """
+
+    with open(file_name, 'a') as write_file:
+        pass
