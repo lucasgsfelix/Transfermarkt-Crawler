@@ -7,6 +7,7 @@ def get_player_info(player_name, player_id):
     """ Get the information about a player. """
 
     link = parser.player_link_assemble(player_name, player_id)
+    print(link)
     player_page = parser.get_page(link)
 
     player_info = {}
@@ -62,6 +63,7 @@ def get_player_transfer(player_page):
                                   "</tfoot>", player_page)
     pages = parser.retrieve_in_tags('<tr class="zeile-transfer" >', '</tr>',
                                     player_page, False)
+
     transfers = []
     for page in pages:
         info = {}

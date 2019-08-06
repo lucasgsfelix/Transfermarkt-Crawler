@@ -26,6 +26,8 @@ if __name__ == '__main__':
 
             for season in range(SEASON_START, SEASON_END):
 
+                print("Temporada ", season)
+
                 team_players = teams.get_players(league_teams[team],
                                                  team, season)
                 players_info = []  # new list of player for each season

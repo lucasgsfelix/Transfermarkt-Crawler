@@ -1,25 +1,37 @@
 """ Parser Module for Transfermarkt Crawler."""
-import os
 import re
+from selenium import webdriver
 
 
+class TimeOutException(Exception):
+    """ Time out Exception Class."""
+
+
+DRIVER = webdriver.Chrome()
 def file_read(file_name):
     """ Read files function. """
-
-    with open(file_name) as file_data:
-        return file_data.read()
+    try:
+        with open(file_name) as file_data:
+            return file_data.read()
+    except UnicodeDecodeError:
+        with open(file_name, encoding='latin-1') as file_data:
+            return file_data.read()
 
 
 def get_page(link):
     """ Download and return a web page. """
-    if "https://" in link:
-        link = link.split('https://')[1]
+    if "https://" not in link:
+        link = "https://" + link
 
-    os.system('wget -O file.html ' + link + " --quiet")
-    file_data = file_read('file.html')
-    os.system('rm file.html')
+    global DRIVER
+    try:
+        DRIVER.get(link)
+        html = DRIVER.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
+    except TimeOutException:
+        DRIVER.refresh()
+        html = DRIVER.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
 
-    return file_data
+    return html
 
 
 def cut_page(start_token, end_token, page):
@@ -32,6 +44,7 @@ def cut_page(start_token, end_token, page):
         return cut of the page
     """
     start_pos = [(a.end()) for a in list(re.finditer(start_token, page))]
+
     if start_pos:
         start_pos = start_pos[0]
         end_pos = [(a.start()) for a in list(re.finditer(end_token, page))]
