@@ -8,6 +8,8 @@ class TimeOutException(Exception):
 
 
 DRIVER = webdriver.Chrome()
+
+
 def file_read(file_name):
     """ Read files function. """
     try:

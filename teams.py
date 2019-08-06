@@ -1,6 +1,5 @@
 """ Crawler the teams from transfermarkt. """
 import parser
-import re
 
 
 def get_players(team_name, team_id, season):
@@ -9,21 +8,27 @@ def get_players(team_name, team_id, season):
         Return a dict of players names and ID.
     """
     link = parser.team_link_assemble(team_name, team_id, season)
-    print(link)
-    page = parser.get_page(link)
 
-    page = parser.cut_page('selected="selected">Player',
-                           "</select></div>", page)
+    players_page = parser.get_page(link)
 
-    players_id = parser.retrieve_in_tags('value="', '">', page)
-    players_name = parser.retrieve_in_tags('>', '<', page)
+    begin_token = '<a name="zugaenge" class="anchor">'
+    end_token = '<div class="werbung werbung-fullsize_contentad">'
+    page = parser.cut_page(begin_token, end_token, players_page)
 
-    players_id = list(filter(lambda x: re.match(r'\d', x), players_id))
-    players_name = parser.remove_token(players_name, ['\n'])
-    players_name = list(map(lambda x: re.sub(r'^[0-9()]*', '', x),
-                            players_name))
-    print(players_name)
-    exit()
+    begin_token = '<td class="hauptlink">'
+    pages = parser.retrieve_in_tags(begin_token, '/a>', page, False)
 
-    return {int(players_id[index]): name for index,
-            name in enumerate(players_name)}
+    # inside the pages, we must have a href
+    pages = list(filter(lambda x: 'href' in x, pages))
+
+    players_info = {}
+
+    for page in pages:
+
+        player_id = parser.retrieve_in_tags('id="', '"', page)
+        player_name = parser.retrieve_in_tags(player_id+'">', '<', page)
+
+        if player_name is not None:
+            players_info[player_id] = player_name
+
+    return players_info
