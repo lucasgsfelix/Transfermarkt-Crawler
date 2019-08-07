@@ -57,7 +57,7 @@
 	you are using. To get our address send a e-mail to lucasgsfelix@gmail.com
 
 ## Used one of the algorithms in your paper and want to refer ?
-
+```
 @misc{lucasgsfelix,
   author = {Félix, Lucas},
   title = {Transfermarkt Crawler},
@@ -66,3 +66,4 @@
   journal = {GitHub repository},
   howpublished = {\url{https://github.com/lucasgsfelix/Transfermarkt-Crawler}}
 }
+```
