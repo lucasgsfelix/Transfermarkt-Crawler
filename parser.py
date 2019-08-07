@@ -143,8 +143,14 @@ def player_link_assemble(player_name, player_id):
     return link + "/profil/spieler/" + str(player_id)
 
 
-def file_write(file_name, team_info):
+def file_write(team_id, team_name, players_info, season):
     """ Write a file with team info.
+
+        team_id = int = Teams ID
+        team_name = string = Teams name
+        players_info = list = each element is a 
+        dict with players info
+        season = int = collect season
 
         Responsible for create/alterate a file.
 
@@ -153,6 +159,26 @@ def file_write(file_name, team_info):
             teams.txt - Will store teams data;
     """
 
-    with open(file_name, 'a') as write_file:
-        print(team_info)
-        exit()
+    with open('Output/teams.txt', 'a') as file:
+
+        players_id = [player_id for player_id in players_info['Id']]
+             
+
+
+    with open('Output/players_id.txt', 'a') as file:
+        
+        players_id = file.read().split('\n')
+
+        transfers_id = list(filter(lambda x: x not in players_id,
+                                                    players_info['Id']))
+
+        [file.write(player + "\n") for player in transfers_id]
+
+    with open('Output/transfers.txt', 'a') as file:
+
+        transfers = list(filter(lambda x: x['Id'] not in transfers_id,
+                                                        players_info))
+
+        # TODO: make a function to better print this data set
+
+

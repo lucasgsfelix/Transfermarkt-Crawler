@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
             for season in range(SEASON_START, SEASON_END):
 
-                print("Temporada ", season)
+                print("Temporada: ", season)
 
                 team_players = teams.get_players(league_teams[team],
                                                  team, season)
@@ -37,6 +37,8 @@ if __name__ == '__main__':
                     players_info.append(players.get_player_info(
                                                 team_players[player], player))
 
-                seasons.append({season: players_info})
+                parser.file_write(team, league_teams[team], players_info, season)
+                break
 
-            parser.file_write("Output/teams_output.txt", {team: seasons})
+            parser.file_write({team: seasons})
+            exit()
