@@ -1,18 +1,17 @@
 """ Crawler the players from Transfermarkt. """
-import time
 import parser
 from collections import OrderedDict
+import crawler
 
 
 def get_player_info(player_name, player_id):
     """ Get the information about a player. """
 
     link = parser.player_link_assemble(player_name, player_id)
-    player_page = parser.get_page(link)
+    player_page = crawler.get_page(link)
 
     if not player_page:
-        time.sleep(60*5)
-        player_page = parser.get_page(link)
+        player_page = crawler.get_page(link, error=True)
 
     player_info = {}
 

@@ -1,5 +1,6 @@
 """ Crawler the teams from transfermarkt. """
 import parser
+import crawler
 
 
 def get_players(team_name, team_id, season):
@@ -9,7 +10,7 @@ def get_players(team_name, team_id, season):
     """
     link = parser.team_link_assemble(team_name, team_id, season)
 
-    players_page = parser.get_page(link)
+    players_page = crawler.get_page(link)
 
     begin_token = '<a name="zugaenge" class="anchor">'
     end_token = '<div class="werbung werbung-fullsize_contentad">'

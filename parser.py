@@ -1,13 +1,5 @@
 """ Parser Module for Transfermarkt Crawler."""
 import re
-from selenium import webdriver
-
-
-class TimeOutException(Exception):
-    """ Time out Exception Class."""
-
-
-DRIVER = webdriver.Chrome()
 
 
 def file_read(file_name):
@@ -18,25 +10,6 @@ def file_read(file_name):
     except UnicodeDecodeError:
         with open(file_name, encoding='latin-1') as file_data:
             return file_data.read()
-
-
-def get_page(link):
-    """ Download and return a web page. """
-    if "https://" not in link:
-        link = "https://" + link
-
-    global DRIVER
-
-    html_code = "return document.getElementsByTagName('html')[0].innerHTML"
-
-    try:
-        DRIVER.get(link)
-        html = DRIVER.execute_script(html_code)
-    except TimeOutException:
-        DRIVER.refresh()
-        html = DRIVER.execute_script(html_code)
-
-    return html
 
 
 def cut_page(start_token, end_token, page):

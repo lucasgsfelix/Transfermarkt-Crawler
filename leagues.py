@@ -1,11 +1,12 @@
 """ Crawler the leagues from Transfermarkt. """
 import re
 import parser
+import crawler
 
 
 def get_teams(league_link):
     """ Return all the teams of a given league. """
-    league_page = parser.get_page(league_link)
+    league_page = crawler.get_page(league_link)
 
     league_page = parser.cut_page('id="verein_select_breadcrumb"',
                                   "</select>", league_page)
