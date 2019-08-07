@@ -1,4 +1,5 @@
 """ Crawler the players from Transfermarkt. """
+import time
 import parser
 from collections import OrderedDict
 
@@ -7,8 +8,11 @@ def get_player_info(player_name, player_id):
     """ Get the information about a player. """
 
     link = parser.player_link_assemble(player_name, player_id)
-    print(link)
     player_page = parser.get_page(link)
+
+    if not player_page:
+        time.sleep(60*5)
+        player_page = parser.get_page(link)
 
     player_info = {}
 
@@ -61,7 +65,8 @@ def get_player_transfer(player_page):
     """ Get the transfers made along a player career. """
     player_page = parser.cut_page('<div class="box transferhistorie">',
                                   "</tfoot>", player_page)
-    pages = parser.retrieve_in_tags('<tr class="zeile-transfer" >', '</tr>',
+
+    pages = parser.retrieve_in_tags('<tr class="zeile-transfer">', '</tr>',
                                     player_page, False)
 
     transfers = []

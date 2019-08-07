@@ -26,12 +26,15 @@ def get_page(link):
         link = "https://" + link
 
     global DRIVER
+
+    html_code = "return document.getElementsByTagName('html')[0].innerHTML"
+
     try:
         DRIVER.get(link)
-        html = DRIVER.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
+        html = DRIVER.execute_script(html_code)
     except TimeOutException:
         DRIVER.refresh()
-        html = DRIVER.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
+        html = DRIVER.execute_script(html_code)
 
     return html
 
@@ -168,7 +171,14 @@ def player_link_assemble(player_name, player_id):
 
 
 def file_write(file_name, team_info):
-    """ Write a file with team info. """
+    """ Write a file with team info.
+
+        Responsible for create/alterate a file.
+
+        Two files will be change along time:
+            transfer.txt - Will store all gathered transfers.
+            teams.txt - Will store teams data;
+    """
 
     with open(file_name, 'a') as write_file:
         print(team_info)
