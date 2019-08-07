@@ -19,6 +19,10 @@
 
 	- To execute the code you can run python main.py or import the modules for your code.
 
+	- In case you does not have a webdriver in your computer, here some tutorials of how install:
+		Chorme: http://chromedriver.chromium.org/getting-started
+		Firefox: https://github.com/mozilla/geckodriver
+
 ## Modeled Dataset
 
 	Three diffenrent dataset can be modeled from the Transfermarkt Web Crawler. Next, we present each one these datasets.

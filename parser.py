@@ -148,7 +148,7 @@ def file_write(team_id, team_name, players_info, season):
 
         team_id = int = Teams ID
         team_name = string = Teams name
-        players_info = list = each element is a 
+        players_info = list = each element is a
         dict with players info
         season = int = collect season
 
@@ -156,29 +156,33 @@ def file_write(team_id, team_name, players_info, season):
 
         Two files will be change along time:
             transfer.txt - Will store all gathered transfers.
-            teams.txt - Will store teams data;
+            player.txt - Will store all gathered players
+            teams.txt - Will store all gathered teams.
     """
 
     with open('Output/teams.txt', 'a') as file:
 
         players_id = [player_id for player_id in players_info['Id']]
-             
+
 
 
     with open('Output/players_id.txt', 'a') as file:
-        
+
         players_id = file.read().split('\n')
 
         transfers_id = list(filter(lambda x: x not in players_id,
-                                                    players_info['Id']))
+                                   players_info['Id']))
 
-        [file.write(player + "\n") for player in transfers_id]
+        for player in transfers_id:
+            file.write(player + "\n")
+
+    with open('Output/players.txt', 'a') as file:
+
+        pass
 
     with open('Output/transfers.txt', 'a') as file:
 
         transfers = list(filter(lambda x: x['Id'] not in transfers_id,
-                                                        players_info))
+                                players_info))
 
         # TODO: make a function to better print this data set
-
-
