@@ -1,12 +1,27 @@
+# Transfermarkt Crawler
+
 ## Overview
 
-	Crawler for the website transfermarkt.com. The site is a huge database with soccer info as leagues, teams and players.
+	Crawler for the website transfermarkt.com. The site is a huge database with soccer info as
+	leagues, teams and players.
 
 ## Quick Start
+	
+	This WebCrawler can work in two different way:
+		- You can only retrieve using a singular module:
+			* Teams
+			* Players
+			* Leagues
 
+		- You can also retrieve by inputing a league, which will gather Teams and Players. 
+
+		- You can define the seasons that will be crawled.
+
+	- To execute the code you can run python main.py or import the modules for your code.
 
 ## Modeled Dataset
 
+	Three diffenrent dataset can be modeled from the Transfermarkt Web Crawler. Next, we present each one these datasets.
 
 ### Teams
 
@@ -33,8 +48,9 @@
 
 ## License
 
-	
-	You're free to use this package, but if it makes it to your production environment we highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. To get our address send a e-mail to lucasgsfelix@gmail.com
+	You're free to use this package, but if it makes it to your production environment we highly
+	appreciate you sending us a postcard from your hometown, mentioning which of our package(s)
+	you are using. To get our address send a e-mail to lucasgsfelix@gmail.com
 
 ## Used one of the algorithms in your paper and want to refer ?
 
