@@ -37,7 +37,8 @@ if __name__ == '__main__':
                     players_info.append(players.get_player_info(
                                                 team_players[player], player))
 
-                parser.file_write(team, league_teams[team], players_info, season)
+                parser.file_write(team, league_teams[team], players_info,
+                                  season)
 
             parser.file_write({team: seasons})
             exit()

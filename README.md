@@ -6,7 +6,7 @@
 	leagues, teams and players.
 
 ## Quick Start
-	
+	https://www.globo.com/
 	This WebCrawler can work in two different way:
 		- You can only retrieve using a singular module:
 			* Teams
@@ -25,7 +25,8 @@
 
 ## Modeled Dataset
 
-	Three diffenrent dataset can be modeled from the Transfermarkt Web Crawler. Next, we present each one these datasets.
+	Three diffenrent dataset can be modeled from the Transfermarkt Web Crawler.
+	Next, we present each one these datasets.
 
 ### Teams
 
@@ -50,13 +51,26 @@
 
 		Player ID, Season, Fee, Market Value, Team A, Team B, ID Team A, ID Team B
 
+### Managers
+	
+	In this dataset we have managers information, the fields are:
+
+		Manager Name, Manager ID, Birth Date, Birth Place, Age, Nationality, Avg. term,
+		Coaching License, Preferred Formation, Titles, History
+
+### Managers History
+	
+	In this dataset we have managers history, the fields are:
+
+		Team, ID, Appointed, Contract, Position, Number of Matches, Points Per Match
+
 ## License
 
 	You're free to use this package, but if it makes it to your production environment we highly
 	appreciate you sending us a postcard from your hometown, mentioning which of our package(s)
 	you are using. To get our address send a e-mail to lucasgsfelix@gmail.com
 
-## Used one of the algorithms in your paper and want to refer ?
+## Used this Crawler in your paper and want to refer ?
 ```
 @misc{lucasgsfelix,
   author = {Félix, Lucas},

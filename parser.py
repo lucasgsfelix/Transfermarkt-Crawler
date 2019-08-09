@@ -164,8 +164,6 @@ def file_write(team_id, team_name, players_info, season):
 
         players_id = [player_id for player_id in players_info['Id']]
 
-
-
     with open('Output/players_id.txt', 'a') as file:
 
         players_id = file.read().split('\n')
