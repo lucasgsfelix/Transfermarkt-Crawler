@@ -33,7 +33,7 @@
 
 	In this dataset we have teams information, the fields are:
 
-		Team Name, ID, Season, Manager, \# Matches, Win, Draw, Loses, Transfer Income,
+		Team Name, ID, Season, Manager, Manager Id, Transfer Income,
 		Transfer Departures, Title, Squad ID
 
 ### Players
@@ -46,7 +46,6 @@
 
 ### Transfers
 
-	
 	In this dataset we have transfers information, the fields are:
 
 		Player ID, Season, Fee, Market Value, Team A, Team B, ID Team A, ID Team B

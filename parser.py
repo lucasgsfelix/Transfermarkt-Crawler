@@ -1,6 +1,6 @@
 """ Parser Module for Transfermarkt Crawler."""
 import re
-
+from headers import TRANSFERS, PLAYERS
 
 def file_read(file_name):
     """ Read files function. """
@@ -143,11 +143,9 @@ def player_link_assemble(player_name, player_id):
     return link + "/profil/spieler/" + str(player_id)
 
 
-def file_write(team_id, team_name, players_info, season):
+def file_write(team, players_info, season):
     """ Write a file with team info.
 
-        team_id = int = Teams ID
-        team_name = string = Teams name
         players_info = list = each element is a
         dict with players info
         season = int = collect season
@@ -161,26 +159,33 @@ def file_write(team_id, team_name, players_info, season):
     """
 
     with open('Output/teams.txt', 'a') as file:
-
-        players_id = [player_id for player_id in players_info['Id']]
+        pass
 
     with open('Output/players_id.txt', 'a') as file:
 
+
         players_id = file.read().split('\n')
 
-        transfers_id = list(filter(lambda x: x not in players_id,
-                                   players_info['Id']))
+        players_info = list(filter(lambda x: x['Id'] not in players_id,
+                                   players_info))
 
-        for player in transfers_id:
-            file.write(player + "\n")
-
-    with open('Output/players.txt', 'a') as file:
-
-        pass
+        for player_id in players_info:
+            file.write(player_id['Id'] + "\n")
 
     with open('Output/transfers.txt', 'a') as file:
+        for transfer in players_info['Transfers']:
+            save_file(file, TRANSFERS, transfer)
 
-        transfers = list(filter(lambda x: x['Id'] not in transfers_id,
-                                players_info))
+    with open('Output/players.txt', 'a') as file:
+        for player in players_info:
+            save_file(file, PLAYERS, player)
 
         # TODO: make a function to better print this data set
+
+def save_file(file, header, data):
+    """ Generic function to save in a database."""
+    for index, key in enumerate(header):
+        if index != len(header) - 1:
+            file.write(data[key] + "\t")
+        else:
+            file.write(data[key] + "\n")
