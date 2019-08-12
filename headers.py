@@ -10,8 +10,8 @@ TRANSFERS = ["Player Id", "Season", "Fee", "Market Value", "Team A", "Team B",
              "Id Team A", "Id Team B"]
 
 # teams header
-TEAMS = ["Name", "Id", "Season", "Manager", "Manager Id", "Transfer Income",
-         "Transfer Departures", "Title", "Squad Id"]
+TEAMS = ["Name", "Id", "Season", "Manager", "Manager Id", "Income",
+         "Expend.", "Title", "Squad Id"]
 
 # managers header
 MANAGERS = ["Name", "Id", "Birth Date", "Birth Place", "Age", "Nationality",

@@ -32,6 +32,7 @@ def get_players(team_name, team_id, season):
 
     return players_info
 
+
 def get_team_info(team_name, team_id, season):
     """ Get teams info.
 
@@ -45,19 +46,20 @@ def get_team_info(team_name, team_id, season):
     team_info["Id"] = team_id
     team_info["Season"] = season
 
-    team_info["Manager"] = parser.retrieve_in_tags("Manager:</div>", "</a>",
-                                                   team_page)
+    team_info["Manager"] = parser.retrieve_in_tags("Manager:</div>",
+                                                   "</a>", team_page)
 
-    team_info["Income"] = parser.retrieve_in_tags('class="greentext rechts">', "</td>",
-                                                  team_page)
+    team_info["Income"] = parser.retrieve_in_tags('class="greentext rechts">',
+                                                  "</td>", team_page)
 
-    team_info['Income'] = parser.remove_tokens(team_info['Income'], ['\t', '\n'])
+    team_info['Income'] = parser.remove_tokens(team_info['Income'],
+                                               ['\t', '\n'])
 
+    team_info["Expend."] = parser.retrieve_in_tags('class="redtext rechts">',
+                                                   "</td>", team_page)[0]
 
-    team_info["Expenditures"] = parser.retrieve_in_tags('class="redtext rechts">', "</td>",
-                                                        team_page)[0]
-
-    team_info['Expenditures'] = parser.remove_tokens(team_info['Expenditures'], ['\t', '\n'])
+    team_info['Expend.'] = parser.remove_tokens(team_info['Expenditures'],
+                                                ['\t', '\n'])
 
     parsed_season = parser.parse_season(season)
 
@@ -71,9 +73,11 @@ def get_team_info(team_name, team_id, season):
         if parsed_season in title:
             season_titles.append(parser.retrieve_in_tags(">", "</h2>", title))
 
-    team_info['Titles'] = season_titles #TODO: remove the 8x, 12x, of each title
+    team_info['Titles'] = season_titles
+    # TODO: remove the 8x, 12x, of each title
 
     return team_info
+
 
 def _return_page(team_name, team_id, season):
     """ Return the html from team page. """

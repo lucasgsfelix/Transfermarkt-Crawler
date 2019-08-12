@@ -2,6 +2,7 @@
 import re
 from headers import TRANSFERS, PLAYERS
 
+
 def file_read(file_name):
     """ Read files function. """
     try:
@@ -150,6 +151,7 @@ def titles_link_assemble(team_name, team_id):
 
     return link + '/erfolge/verein/' + str(team_id)
 
+
 def file_write(team, players_info, season):
     """ Write a file with team info.
 
@@ -170,7 +172,6 @@ def file_write(team, players_info, season):
 
     with open('Output/players_id.txt', 'a') as file:
 
-
         players_id = file.read().split('\n')
 
         players_info = list(filter(lambda x: x['Id'] not in players_id,
@@ -189,6 +190,7 @@ def file_write(team, players_info, season):
 
         # TODO: make a function to better print this data set
 
+
 def save_file(file, header, data):
     """ Generic function to save in a database."""
     for index, key in enumerate(header):
@@ -197,10 +199,11 @@ def save_file(file, header, data):
         else:
             file.write(data[key] + "\n")
 
+
 def parse_season(season):
     """ Get the season in a soccer format: 2000 --> 00/01."""
 
-    season = ''.join(list(str(season))[2:]) # get the two last values
+    season = ''.join(list(str(season))[2:])  # get the two last values
     if season == '99':
         return '99/00'
 
