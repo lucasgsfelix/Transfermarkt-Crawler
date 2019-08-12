@@ -136,12 +136,19 @@ def team_link_assemble(team_name, team_id, season):
 
 
 def player_link_assemble(player_name, player_id):
-    """ Mount a link of a player getting his history"""
+    """ Mount a link of a player getting his history."""
 
     link = "transfermarkt.com/" + player_name.replace(' ', '-')
 
     return link + "/profil/spieler/" + str(player_id)
 
+
+def titles_link_assemble(team_name, team_id):
+    """ Mount a link to get all titles of a club."""
+
+    link = "transfermarkt.com/" + team_name.replace(' ', '-')
+
+    return link + '/erfolge/verein/' + str(team_id)
 
 def file_write(team, players_info, season):
     """ Write a file with team info.
@@ -189,3 +196,15 @@ def save_file(file, header, data):
             file.write(data[key] + "\t")
         else:
             file.write(data[key] + "\n")
+
+def parse_season(season):
+    """ Get the season in a soccer format: 2000 --> 00/01."""
+
+    season = ''.join(list(str(season))[2:]) # get the two last values
+    if season == '99':
+        return '99/00'
+
+    if int(season) == 9:
+        return "09/10"
+
+    return season + '/' + str(int(season) + 1)
