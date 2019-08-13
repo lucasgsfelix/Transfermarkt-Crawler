@@ -122,7 +122,7 @@ def remove_token(values, tokens):
     return list(filter(lambda x: x not in tokens, values))
 
 
-def team_link_assemble(team_name, team_id, season):
+def team_detailed_link_assemble(team_name, team_id, season):
     """ Mount a link of a team getting the with it transfers. """
 
     link = "transfermarkt.com/" + team_name.replace(' ', '-').lower()
@@ -134,6 +134,18 @@ def team_link_assemble(team_name, team_id, season):
     detailed = "/pos//detailpos/0/w_s//plus/1#zugaenge"
 
     return link + club + season + detailed
+
+
+def team_link_assemble(team_name, team_id, season):
+    """ Mount a not detailed link of a team. """
+
+    link = "transfermarkt.com/" + team_name.replace(' ', '-').lower()
+
+    club = "/transfers/verein/" + str(team_id)
+
+    season = "?saison_id=" + str(season)
+
+    return link + club + season
 
 
 def player_link_assemble(player_name, player_id):
@@ -150,6 +162,10 @@ def titles_link_assemble(team_name, team_id):
     link = "transfermarkt.com/" + team_name.replace(' ', '-')
 
     return link + '/erfolge/verein/' + str(team_id)
+
+
+def manager_link_assemble():
+    """Mount a link with manager infos."""
 
 
 def file_write(team, players_info, season):

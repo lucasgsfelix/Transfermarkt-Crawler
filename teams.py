@@ -1,4 +1,5 @@
 """ Crawler the teams from transfermarkt. """
+import re
 import parser
 import crawler
 
@@ -8,7 +9,8 @@ def get_players(team_name, team_id, season):
 
         Return a dict of players names and ID.
     """
-    players_page = _return_page(team_name, team_id, season)
+    link = parser.team_detailed_link_assemble(team_name, team_id, season)
+    players_page = crawler.get_page(link)
 
     begin_token = '<a name="zugaenge" class="anchor">'
     end_token = '<div class="werbung werbung-fullsize_contentad">'
@@ -38,7 +40,8 @@ def get_team_info(team_name, team_id, season):
 
         Returns a dict with all team info
     """
-    team_page = _return_page(team_name, team_id, season)
+    link = parser.team_link_assemble(team_name, team_id, season)
+    team_page = crawler.get_page(link)
 
     team_info = {}
 
@@ -46,8 +49,10 @@ def get_team_info(team_name, team_id, season):
     team_info["Id"] = team_id
     team_info["Season"] = season
 
-    team_info["Manager"] = parser.retrieve_in_tags("Manager:</div>",
+    team_info["Manager"] = parser.retrieve_in_tags('class="container-hauptinfo">',
                                                    "</a>", team_page)
+    team_info["Manager Id"] = parser.retrieve_in_tags("profil/trainer/",
+                                                      '">', team_page)
 
     team_info["Income"] = parser.retrieve_in_tags('class="greentext rechts">',
                                                   "</td>", team_page)
@@ -58,7 +63,7 @@ def get_team_info(team_name, team_id, season):
     team_info["Expend."] = parser.retrieve_in_tags('class="redtext rechts">',
                                                    "</td>", team_page)[0]
 
-    team_info['Expend.'] = parser.remove_tokens(team_info['Expenditures'],
+    team_info['Expend.'] = parser.remove_tokens(team_info['Expend.'],
                                                 ['\t', '\n'])
 
     parsed_season = parser.parse_season(season)
@@ -73,14 +78,9 @@ def get_team_info(team_name, team_id, season):
         if parsed_season in title:
             season_titles.append(parser.retrieve_in_tags(">", "</h2>", title))
 
-    team_info['Titles'] = season_titles
-    # TODO: remove the 8x, 12x, of each title
+    season_titles = list(map(lambda x: re.sub(r'[\d]+x ', '', x),
+                             season_titles))
+    if not season_titles:
+        team_info['Titles'] = None
 
     return team_info
-
-
-def _return_page(team_name, team_id, season):
-    """ Return the html from team page. """
-    link = parser.team_link_assemble(team_name, team_id, season)
-
-    return crawler.get_page(link)
