@@ -9,6 +9,7 @@
 import parser
 import leagues
 import players
+import managers
 import teams
 
 if __name__ == '__main__':
@@ -30,7 +31,15 @@ if __name__ == '__main__':
 
                 team_players = teams.get_players(league_teams[team],
                                                  team, season)
-                players_info = []  # new list of player for each season
+
+                team_info = teams.get_team_info(league_teams[team],
+                                                team, season)
+
+                for manager in team_info['Managers']:
+                    history = managers.get_manager_info(manager, team_id['Manager Id'])
+                    # TODO: a function to save managers id and a managers
+
+                players_info = []
 
                 for player in team_players:
 
