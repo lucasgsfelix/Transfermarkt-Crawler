@@ -14,7 +14,7 @@ TEAMS = ["Name", "Id", "Season", "Manager", "Manager Id", "Income",
          "Expend.", "Title", "Squad Id"]
 
 # managers header
-MANAGERS = ["Name", "Id", "Birth Date", "Birth Place", "Age", "Nationality",
+MANAGERS = ["Name", "Id", "Birth Date", "Birth Place", "Nationality",
             "Avg. term", "Coaching License", "Preferred Formation",
             "Titles", "History"]
 

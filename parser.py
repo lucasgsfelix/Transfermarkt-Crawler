@@ -164,9 +164,12 @@ def titles_link_assemble(team_name, team_id):
     return link + '/erfolge/verein/' + str(team_id)
 
 
-def manager_link_assemble():
+def manager_link_assemble(manager_name, manager_id):
     """Mount a link with manager infos."""
 
+    link = "www.transfermarkt.com/" + manager_name.replace(' ', '-')
+
+    return link + 'profil/trainer/' + str(manager_id)
 
 def file_write(team, players_info, season):
     """ Write a file with team info.

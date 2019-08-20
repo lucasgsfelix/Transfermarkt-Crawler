@@ -54,7 +54,7 @@
 	
 	In this dataset we have managers information, the fields are:
 
-		Manager Name, Manager ID, Birth Date, Birth Place, Age, Nationality, Avg. term,
+		Manager Name, Manager ID, Birth Date, Birth Place, Nationality, Avg. term,
 		Coaching License, Preferred Formation, Titles, History
 
 ### Managers History
