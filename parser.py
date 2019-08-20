@@ -67,7 +67,7 @@ def remove_tokens(page, tokens):
     return ''.join(page)
 
 
-def parse_in_tags(page):
+def parse_in_tags(page, join=True):
     """ Parse between > and < tags. """
 
     if '>' in page:
@@ -80,9 +80,13 @@ def parse_in_tags(page):
             pages.append(page[pos:aux])
 
         for index, pag in enumerate(pages):
-            pages[index] = remove_tokens(pag, ['\t', '\n', '<', '>', ''])
+            pages[index] = remove_tokens(pag, ['\t', '\n', '<', '>', '',
+                                               '</th>', '<td>', '<br>'])
 
-        return ''.join(pages)
+        if join:
+            return ''.join(pages)
+
+        return list(filter(lambda x: x not in ['', '&nbsp;'], pages))
 
     return page
 
@@ -112,6 +116,9 @@ def retrieve_in_tags(start_token, end_token, page, parse=True):
 
         if len(set(pages)) > 1:
             return pages
+
+        if not pages:
+            return None
         return pages[0]
 
     return pages
@@ -169,7 +176,16 @@ def manager_link_assemble(manager_name, manager_id):
 
     link = "www.transfermarkt.com/" + manager_name.replace(' ', '-')
 
-    return link + 'profil/trainer/' + str(manager_id)
+    return link + '/profil/trainer/' + str(manager_id)
+
+
+def manager_detailed_link(manager_name, manager_id):
+    """ Mount detailed history link. """
+
+    link = "www.transfermarkt.com/" + manager_name.replace(' ', '-')
+
+    return link + '/profil/trainer/' + str(manager_id) + 'plus/1'
+
 
 def file_write(team, players_info, season):
     """ Write a file with team info.

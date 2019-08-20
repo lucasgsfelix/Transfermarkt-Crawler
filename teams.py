@@ -49,7 +49,8 @@ def get_team_info(team_name, team_id, season):
     team_info["Id"] = team_id
     team_info["Season"] = season
 
-    team_info["Manager"] = parser.retrieve_in_tags('class="container-hauptinfo">',
+    token = 'class="container-hauptinfo">'
+    team_info["Manager"] = parser.retrieve_in_tags(token,
                                                    "</a>", team_page)
     team_info["Manager Id"] = parser.retrieve_in_tags("profil/trainer/",
                                                       '">', team_page)

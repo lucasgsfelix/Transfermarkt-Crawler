@@ -36,7 +36,8 @@ if __name__ == '__main__':
                                                 team, season)
 
                 for manager in team_info['Managers']:
-                    history = managers.get_manager_info(manager, team_id['Manager Id'])
+                    info = managers.get_manager_info(manager,
+                                                     team_id['Manager Id'])
                     # TODO: a function to save managers id and a managers
 
                 players_info = []
