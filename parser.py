@@ -1,6 +1,6 @@
 """ Parser Module for Transfermarkt Crawler."""
 import re
-from headers import TRANSFERS, PLAYERS
+from headers import TRANSFERS, PLAYERS, TEAMS, MANAGERS, MANAGER_HISTORY
 
 
 def file_read(file_name):
@@ -187,7 +187,7 @@ def manager_detailed_link(manager_name, manager_id):
     return link + '/profil/trainer/' + str(manager_id) + 'plus/1'
 
 
-def file_write(team, players_info, season):
+def file_write(team_info, players_info, managers_info):
     """ Write a file with team info.
 
         players_info = list = each element is a
@@ -200,30 +200,46 @@ def file_write(team, players_info, season):
             transfer.txt - Will store all gathered transfers.
             player.txt - Will store all gathered players
             teams.txt - Will store all gathered teams.
+            managers.txt
     """
 
     with open('Output/teams.txt', 'a') as file:
-        pass
+        save_file(file, TEAMS, team_info)
 
     with open('Output/players_id.txt', 'a') as file:
-
-        players_id = file.read().split('\n')
-
-        players_info = list(filter(lambda x: x['Id'] not in players_id,
-                                   players_info))
-
-        for player_id in players_info:
-            file.write(player_id['Id'] + "\n")
-
-    with open('Output/transfers.txt', 'a') as file:
-        for transfer in players_info['Transfers']:
-            save_file(file, TRANSFERS, transfer)
+        players_info = verify_id(file, players_info)
 
     with open('Output/players.txt', 'a') as file:
         for player in players_info:
             save_file(file, PLAYERS, player)
 
-        # TODO: make a function to better print this data set
+    with open('Output/transfers.txt', 'a') as file:
+        for transfer in players_info['Transfers']:
+            save_file(file, TRANSFERS, transfer)
+
+    with open('Output/managers_id.txt', 'a') as file:
+        managers_info = verify_id(file, managers_info)
+
+    with open('Output/managers.txt', 'a') as file:
+        for manager in managers_info:
+            save_file(file, MANAGERS, manager)
+
+    with open('Output/managers_history.txt', 'a') as file:
+        for history in managers_info['History']:
+            save_file(file, MANAGER_HISTORY, history)
+
+
+def verify_id(file, data):
+    """ Verify repeated ids and remove them from the list."""
+    ids = file.read().split('\n')
+
+    data = list(filter(lambda x: x['Id'] not in ids,
+                       data))
+
+    for id_values in data:
+        file.write(id_values['Id'] + "\n")
+
+    return data
 
 
 def save_file(file, header, data):

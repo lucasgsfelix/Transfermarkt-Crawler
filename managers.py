@@ -53,6 +53,7 @@ def get_manager_history(manager_name, manager_id):
     history = []
     for story in stories:
         info = {}
+        info['Manager Id'] = manager_id
         info['Team'] = parser.retrieve_in_tags('alt="', '"', story, False)[0]
         info['Id'] = set(parser.retrieve_in_tags('id="', '"', story, False))
         tokens_tag = parser.parse_in_tags(story, False)

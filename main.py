@@ -34,11 +34,11 @@ if __name__ == '__main__':
 
                 team_info = teams.get_team_info(league_teams[team],
                                                 team, season)
-
+                managers_info = []
                 for manager in team_info['Managers']:
                     info = managers.get_manager_info(manager,
-                                                     team_id['Manager Id'])
-                    # TODO: a function to save managers id and a managers
+                                                     team_info['Manager Id'])
+                    managers_info.append(info)
 
                 players_info = []
 
@@ -47,6 +47,6 @@ if __name__ == '__main__':
                     players_info.append(players.get_player_info(
                                                 team_players[player], player))
 
-                parser.file_write(team, players_info, season)
+                parser.file_write(team_info, players_info, managers_info)
 
             exit()

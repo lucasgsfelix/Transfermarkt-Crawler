@@ -19,5 +19,5 @@ MANAGERS = ["Name", "Id", "Birth Date", "Birth Place", "Nationality",
             "Titles", "History"]
 
 # mangers history
-MANAGER_HISTORY = ["Team", "Id", "Appointed", "Contract", "Position",
-                   "\\# Matches", "Points Per Match"]
+MANAGER_HISTORY = ["Manager Id", "Team", "Id", "Appointed", "Contract",
+                   "Position", "\\# Matches", "Points Per Match"]
