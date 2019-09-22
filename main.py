@@ -48,5 +48,3 @@ if __name__ == '__main__':
                                                 team_players[player], player))
 
                 parser.file_write(team_info, players_info, managers_info)
-
-            exit()

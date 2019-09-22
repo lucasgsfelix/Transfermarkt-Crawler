@@ -155,6 +155,11 @@ def team_link_assemble(team_name, team_id, season):
     return link + club + season
 
 
+def league_result_assemble(link, season):
+    """ Mount a link of a league results. """
+    return link + season
+
+
 def player_link_assemble(player_name, player_id):
     """ Mount a link of a player getting his history."""
 

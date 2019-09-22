@@ -1,0 +1,11 @@
+https://www.transfermarkt.com/campeonato-brasileiro-serie-a/tabelle/wettbewerb/BRA1/saison_id/
+https://www.transfermarkt.com/primera-division/tabelle/wettbewerb/AR1N/saison_id/
+https://www.transfermarkt.com/major-league-soccer/tabelle/wettbewerb/MLS1/saison_id/
+https://www.transfermarkt.com/premier-league/tabelle/wettbewerb/GB1/saison_id/
+https://www.transfermarkt.com/eredivisie/tabelle/wettbewerb/NL1/saison_id/
+https://www.transfermarkt.com/1-bundesliga/tabelle/wettbewerb/L1/saison_id/
+https://www.transfermarkt.com/serie-a/tabelle/wettbewerb/IT1/saison_id/
+https://www.transfermarkt.com/primera-division/tabelle/wettbewerb/ES1/saison_id/
+https://www.transfermarkt.com/liga-mx-apertura/tabelle/wettbewerb/MEXA/saison_id/
+https://www.transfermarkt.com/premier-liga/tabelle/wettbewerb/UKR1/saison_id/
+https://www.transfermarkt.com/chinese-super-league/tabelle/wettbewerb/CSL/saison_id/

@@ -21,3 +21,8 @@ MANAGERS = ["Name", "Id", "Birth Date", "Birth Place", "Nationality",
 # mangers history
 MANAGER_HISTORY = ["Manager Id", "Team", "Id", "Appointed", "Contract",
                    "Position", "\\# Matches", "Points Per Match"]
+
+# League classification
+LEAGUE_CLASS = ["Position", "Club", "Club Id", "Matches", "Win", "Draw",
+                "Lose", "Scored Goals", "Taken Goals", "Balance",
+                "Points"]
