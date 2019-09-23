@@ -33,7 +33,7 @@ def get_results(league_link, season):
                                   '</table>', league_page)
 
     chuncks = parser.retrieve_in_tags("<tr>", "</tr>", league_page,
-                                       parse=False)[1:]
+                                      parse=False)[1:]
 
     info = list(map(get_team_result, chuncks))
 
@@ -50,8 +50,8 @@ def get_team_result(chunck):
     info['Club Id'] = parser.retrieve_in_tags('id="', '"', chunck)[0]
     results = parser.retrieve_in_tags(">", "<", chunck, False)
 
-    results = list(filter(lambda x: re.match(r'[\d\-:]+', x) 
-                             and x != '', results))
+    results = list(filter(lambda x: re.match(r'[\d\-:]+', x)
+                          and x != '', results))
 
     info['Position'] = results[0]
     info['Matches'] = results[1]

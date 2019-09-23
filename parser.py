@@ -256,6 +256,15 @@ def save_file(file, header, data):
             file.write(data[key] + "\n")
 
 
+def write_header(file, header):
+    """ Generic function to save the header in a dataset."""
+    for index, feature in enumerate(header):
+        if index != len(header) - 1:
+            file.write(feature + "\t")
+        else:
+            file.write(feature + "\n")
+
+
 def parse_season(season):
     """ Get the season in a soccer format: 2000 --> 00/01."""
 
