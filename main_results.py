@@ -16,7 +16,7 @@ if __name__ == '__main__':
 
     OUTPUT_FILE = open("Output/league_results.txt", 'a')
     with open("Input/leagues_results.txt", 'r') as LEAGUES_LINKS:
-        LEAGUES_LINKS = LEAGUES_LINKS.open().split('\n')
+        LEAGUES_LINKS = LEAGUES_LINKS.read().split('\n')
         START = 2005
         END = 2020
         HEADER_CALL = True
@@ -26,4 +26,5 @@ if __name__ == '__main__':
                 HEADER_CALL = write_header(HEADER_CALL)
                 for result in results:
                     parser.save_file(OUTPUT_FILE, LEAGUE_CLASS, result)
-                OUTPUT_FILE.close()
+
+    OUTPUT_FILE.close()

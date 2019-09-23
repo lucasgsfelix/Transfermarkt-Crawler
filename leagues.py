@@ -46,8 +46,9 @@ def get_team_result(chunck):
         needed information.
     """
     info = {}
-    info["Club"] = parser.retrieve_in_tags('title="', '"', chunck)[0]
-    info['Club Id'] = parser.retrieve_in_tags('id="', '"', chunck)[0]
+    info["Club"] = parser.retrieve_in_tags('alt="', '"', chunck, False)[0]
+    info['Club Id'] = parser.retrieve_in_tags('id="', '"', chunck,
+                                              False)[0]
     results = parser.retrieve_in_tags(">", "<", chunck, False)
 
     results = list(filter(lambda x: re.match(r'[\d\-:]+', x)
