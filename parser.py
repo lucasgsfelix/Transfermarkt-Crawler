@@ -208,52 +208,56 @@ def file_write(team_info, players_info, managers_info):
             managers.txt
     """
 
-    with open('Output/teams.txt', 'a') as file:
+    with open('Output/teams.txt', 'r+') as file:
         save_file(file, TEAMS, team_info)
 
-    with open('Output/players_id.txt', 'a') as file:
+    with open('Output/players_id.txt', 'r+') as file:
         players_info = verify_id(file, players_info)
 
-    with open('Output/players.txt', 'a') as file:
+    with open('Output/players.txt', 'r+') as file:
         for player in players_info:
+            print(player)
             save_file(file, PLAYERS, player)
 
-    with open('Output/transfers.txt', 'a') as file:
-        for transfer in players_info['Transfers']:
+    with open('Output/transfers.txt', 'r+') as file:
+        transfers = list(map(lambda x: x['Transfers'],
+                             players_info))
+        for transfer in transfers:
             save_file(file, TRANSFERS, transfer)
 
-    with open('Output/managers_id.txt', 'a') as file:
+    with open('Output/managers_id.txt', 'r+') as file:
         managers_info = verify_id(file, managers_info)
 
-    with open('Output/managers.txt', 'a') as file:
+    with open('Output/managers.txt', 'r+') as file:
         for manager in managers_info:
             save_file(file, MANAGERS, manager)
 
-    with open('Output/managers_history.txt', 'a') as file:
-        for history in managers_info['History']:
+    with open('Output/managers_history.txt', 'r+') as file:
+        historic = list(map(lambda x: x['History'],
+                            managers_info))
+        for history in historic:
             save_file(file, MANAGER_HISTORY, history)
 
 
 def verify_id(file, data):
     """ Verify repeated ids and remove them from the list."""
-    ids = file.read().split('\n')
+    ids = file.readlines()
 
-    data = list(filter(lambda x: x['Id'] not in ids,
+    data = list(filter(lambda x: str(x['Id']) not in ids,
                        data))
 
-    for id_values in data:
-        file.write(id_values['Id'] + "\n")
+    info = [str(player['Id']) for player in data]
+
+    file.write('\n'.join(info))
 
     return data
 
 
 def save_file(file, header, data):
     """ Generic function to save in a database."""
-    for index, key in enumerate(header):
-        if index != len(header) - 1:
-            file.write(data[key] + "\t")
-        else:
-            file.write(data[key] + "\n")
+    if data is not None:
+        values = list(map(lambda value: str(value), data))
+        file.write('\t'.join(values) + '\n')
 
 
 def write_header(file, header):

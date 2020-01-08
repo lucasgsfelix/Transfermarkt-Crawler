@@ -21,8 +21,9 @@ def get_page(link, error=False):
     try:
         driver.get(link)
         html = driver.execute_script(html_code)
-    except TimeOutException:
+    except:
         driver.refresh()
+        driver.get(link)
         html = driver.execute_script(html_code)
 
     driver.close()

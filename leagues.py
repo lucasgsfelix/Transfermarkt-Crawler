@@ -52,8 +52,7 @@ def get_team_result(chunck):
     results = parser.retrieve_in_tags(">", "<", chunck, False)
 
     results = list(filter(lambda x: re.match(r'[\d\-:]+', x)
-                          and x != '', results))
-
+                          and x != '' and ' ' not in x, results))
     info['Position'] = results[0]
     info['Matches'] = results[1]
     info['Win'] = results[2]

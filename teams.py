@@ -45,7 +45,7 @@ def get_team_info(team_name, team_id, season):
 
     team_info = {}
 
-    team_info["Team Name"] = team_name
+    team_info["Name"] = team_name
     team_info["Id"] = team_id
     team_info["Season"] = season
 

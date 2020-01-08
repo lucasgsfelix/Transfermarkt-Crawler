@@ -50,6 +50,9 @@ def get_manager_history(manager_name, manager_id):
     end_token = '</tr>'
     stories = parser.retrieve_in_tags(begin_token, end_token,
                                       manager_page, False)
+    if stories is None:
+        return None
+
     history = []
     for story in stories:
         info = {}

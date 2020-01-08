@@ -35,10 +35,11 @@ if __name__ == '__main__':
                 team_info = teams.get_team_info(league_teams[team],
                                                 team, season)
                 managers_info = []
-                for manager in team_info['Managers']:
-                    info = managers.get_manager_info(manager,
-                                                     team_info['Manager Id'])
-                    managers_info.append(info)
+                if team_info['Manager'] is not None:
+	                for manager in team_info['Manager']:
+	                    info = managers.get_manager_info(manager,
+	                                                     team_info['Manager Id'])
+	                    managers_info.append(info)
 
                 players_info = []
 
