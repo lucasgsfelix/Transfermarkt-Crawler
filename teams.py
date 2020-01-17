@@ -37,7 +37,7 @@ def get_players(team_name, team_id, season):
 
 def get_team_info(team_name, team_id, season):
     """ Get teams info.
-
+''
         Returns a dict with all team info
     """
     link = parser.team_link_assemble(team_name, team_id, season)
@@ -46,7 +46,7 @@ def get_team_info(team_name, team_id, season):
     team_info = {}
 
     team_info["Name"] = team_name
-    team_info["Id"] = team_id
+    team_info["Squad Id"] = team_id
     team_info["Season"] = season
 
     token = 'class="container-hauptinfo">'

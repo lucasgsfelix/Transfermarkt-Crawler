@@ -16,6 +16,7 @@ if __name__ == '__main__':
 
     SEASON_START = 2000
     SEASON_END = 2019
+    HEADER = True
 
     for league in parser.file_read("Input/leagues.txt").split('\n'):
 
@@ -36,10 +37,10 @@ if __name__ == '__main__':
                                                 team, season)
                 managers_info = []
                 if team_info['Manager'] is not None:
-	                for manager in team_info['Manager']:
-	                    info = managers.get_manager_info(manager,
-	                                                     team_info['Manager Id'])
-	                    managers_info.append(info)
+                    for manager in team_info['Manager']:
+                        manager_id = team_info['Manager Id']
+                        info = managers.get_manager_info(manager, manager_id)
+                        managers_info.append(info)
 
                 players_info = []
 
@@ -48,4 +49,6 @@ if __name__ == '__main__':
                     players_info.append(players.get_player_info(
                                                 team_players[player], player))
 
-                parser.file_write(team_info, players_info, managers_info)
+                parser.file_write(team_info, players_info,
+                                  managers_info, HEADER)
+                HEADER = False

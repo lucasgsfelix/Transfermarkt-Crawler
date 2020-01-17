@@ -192,7 +192,7 @@ def manager_detailed_link(manager_name, manager_id):
     return link + '/profil/trainer/' + str(manager_id) + 'plus/1'
 
 
-def file_write(team_info, players_info, managers_info):
+def file_write(team_info, players_info, managers_info, header):
     """ Write a file with team info.
 
         players_info = list = each element is a
@@ -208,35 +208,41 @@ def file_write(team_info, players_info, managers_info):
             managers.txt
     """
 
-    with open('Output/teams.txt', 'r+') as file:
-        save_file(file, TEAMS, team_info)
+    with open('Output/teams.txt', 'a+') as file:
+        save_file(file, TEAMS, team_info, header)
 
-    with open('Output/players_id.txt', 'r+') as file:
+    with open('Output/players_id.txt', 'a+') as file:
         players_info = verify_id(file, players_info)
 
-    with open('Output/players.txt', 'r+') as file:
+    with open('Output/players.txt', 'a+') as file:
         for player in players_info:
-            print(player)
-            save_file(file, PLAYERS, player)
+            save_file(file, PLAYERS, player, header)
 
-    with open('Output/transfers.txt', 'r+') as file:
+    with open('Output/transfers.txt', 'a+') as file:
         transfers = list(map(lambda x: x['Transfers'],
                              players_info))
-        for transfer in transfers:
-            save_file(file, TRANSFERS, transfer)
 
-    with open('Output/managers_id.txt', 'r+') as file:
+        for player_transfers in transfers:
+
+            for transfer in player_transfers:
+
+                save_file(file, TRANSFERS, transfer, header)
+                header = False
+
+        header = True
+
+    with open('Output/managers_id.txt', 'a+') as file:
         managers_info = verify_id(file, managers_info)
 
-    with open('Output/managers.txt', 'r+') as file:
+    with open('Output/managers.txt', 'a+') as file:
         for manager in managers_info:
-            save_file(file, MANAGERS, manager)
+            save_file(file, MANAGERS, manager, header)
 
-    with open('Output/managers_history.txt', 'r+') as file:
+    with open('Output/managers_history.txt', 'a+') as file:
         historic = list(map(lambda x: x['History'],
                             managers_info))
         for history in historic:
-            save_file(file, MANAGER_HISTORY, history)
+            save_file(file, MANAGER_HISTORY, history, header)
 
 
 def verify_id(file, data):
@@ -253,20 +259,19 @@ def verify_id(file, data):
     return data
 
 
-def save_file(file, header, data):
+def save_file(file, header, data, header_flag=False):
     """ Generic function to save in a database."""
-    if data is not None:
-        values = list(map(lambda value: str(value), data))
-        file.write('\t'.join(values) + '\n')
+    if header_flag:
+        file.write('\t'.join(header) + '\n')
+
+    if data is not None and data:
+        data = [str(data[column]) for column in header]
+        file.write('\t'.join(data) + '\n')
 
 
 def write_header(file, header):
     """ Generic function to save the header in a dataset."""
-    for index, feature in enumerate(header):
-        if index != len(header) - 1:
-            file.write(feature + "\t")
-        else:
-            file.write(feature + "\n")
+    file.write('\t'.join(header) + '\n')
 
 
 def parse_season(season):

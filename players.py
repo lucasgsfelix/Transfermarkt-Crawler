@@ -15,7 +15,7 @@ def get_player_info(player_name, player_id):
 
     player_info = {}
 
-    player_info['Transfers'] = get_player_transfer(player_page)
+    player_info['Transfers'] = get_player_transfer(player_page, player_id)
 
     player_info['Name'] = player_name.replace('-', ' ').capitalize()
 
@@ -39,8 +39,8 @@ def get_player_info(player_name, player_id):
     player_info['Height'] = parser.retrieve_in_tags('itemprop="height"',
                                                     span, player_page)
 
-    player_info['Position(s)'] = parser.retrieve_in_tags("Position:</span>",
-                                                         "</p>", player_page)
+    player_info['Position'] = parser.retrieve_in_tags("Position:</span>",
+                                                      "</p>", player_page)
 
     player_info['Foot'] = parser.retrieve_in_tags("Foot:",
                                                   "</td>", player_page)
@@ -60,7 +60,7 @@ def get_player_info(player_name, player_id):
     return player_info
 
 
-def get_player_transfer(player_page):
+def get_player_transfer(player_page, player_id):
     """ Get the transfers made along a player career. """
     player_page = parser.cut_page('<div class="box transferhistorie">',
                                   "</tfoot>", player_page)
@@ -69,8 +69,13 @@ def get_player_transfer(player_page):
                                     player_page, False)
 
     transfers = []
+
+    if pages is None:
+        return pages
+
     for page in pages:
         info = {}
+        info['Player Id'] = player_id
         info['Season'] = parser.retrieve_in_tags(
             'class="zentriert hide-for-small"', '</td>', page)[0]
         info['Fee'] = parser.retrieve_in_tags('zelle-abloese', '<', page)

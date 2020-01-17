@@ -1,17 +1,17 @@
 ''' Header for each one of the modeled dateset '''
 
 # players header
-PLAYERS = ["Player Name", "Full Name", "Id", "Birth Date", "Birth Place",
+PLAYERS = ["Name", "Full Name", "Id", "Birth Date", "Birth Place",
            "Age", "Height", "Nationality", "Position", "Foot", "Agent",
-           "Joined", "Contract Lenght", "Outfiter"]
+           "Joined", "Contract Length", "Outfiter"]
 
 # transfers header
 TRANSFERS = ["Player Id", "Season", "Fee", "Market Value", "Team A", "Team B",
-             "Id Team A", "Id Team B"]
+             "ID Team A", "ID Team B"]
 
 # teams header
-TEAMS = ["Name", "Id", "Season", "Manager", "Manager Id", "Income",
-         "Expend.", "Title", "Squad Id"]
+TEAMS = ["Name", "Squad Id", "Season", "Manager", "Manager Id", "Income",
+         "Expend.", "Titles"]
 
 # managers header
 MANAGERS = ["Name", "Id", "Birth Date", "Birth Place", "Nationality",
