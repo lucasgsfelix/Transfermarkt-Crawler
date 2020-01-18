@@ -32,7 +32,7 @@ def get_manager_info(manager_name, manager_id):
     manager_info['Coaching License'] = parser.retrieve_in_tags(token, "</td>",
                                                                manager_page)
 
-    token = "Preferred formation"
+    token = "Preferred Formation"
     manager_info[token] = parser.retrieve_in_tags(token + ':', "</td>",
                                                   manager_page)
 

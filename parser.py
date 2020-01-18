@@ -214,10 +214,14 @@ def file_write(team_info, players_info, managers_info, header):
     with open('Output/players_id.txt', 'a+') as file:
         players_info = verify_id(file, players_info)
 
+    header_aux = header
     with open('Output/players.txt', 'a+') as file:
         for player in players_info:
             save_file(file, PLAYERS, player, header)
+            header = False
+        header = header_aux
 
+    header_aux = header
     with open('Output/transfers.txt', 'a+') as file:
         transfers = list(map(lambda x: x['Transfers'],
                              players_info))
@@ -228,8 +232,7 @@ def file_write(team_info, players_info, managers_info, header):
 
                 save_file(file, TRANSFERS, transfer, header)
                 header = False
-
-        header = True
+        header = header_aux
 
     with open('Output/managers_id.txt', 'a+') as file:
         managers_info = verify_id(file, managers_info)
@@ -237,17 +240,27 @@ def file_write(team_info, players_info, managers_info, header):
     with open('Output/managers.txt', 'a+') as file:
         for manager in managers_info:
             save_file(file, MANAGERS, manager, header)
+            header = False
+        header = header_aux
 
     with open('Output/managers_history.txt', 'a+') as file:
-        historic = list(map(lambda x: x['History'],
+        manager_history = list(map(lambda x: x['History'],
                             managers_info))
-        for history in historic:
-            save_file(file, MANAGER_HISTORY, history, header)
+        for history in manager_history:
+            for works in history:
+                save_file(file, MANAGER_HISTORY, works, header)
+                header = False
 
 
 def verify_id(file, data):
     """ Verify repeated ids and remove them from the list."""
     ids = file.readlines()
+
+    if isinstance(data[0], list):
+        new_data = []
+        for value in data:
+            new_data += data
+        data = new_data
 
     data = list(filter(lambda x: str(x['Id']) not in ids,
                        data))

@@ -14,7 +14,7 @@ import teams
 
 if __name__ == '__main__':
 
-    SEASON_START = 2000
+    SEASON_START = 2006
     SEASON_END = 2019
     HEADER = True
 
@@ -37,13 +37,12 @@ if __name__ == '__main__':
                                                 team, season)
                 managers_info = []
                 if team_info['Manager'] is not None:
-                    for manager in team_info['Manager']:
-                        manager_id = team_info['Manager Id']
+                    for index, manager in enumerate(team_info['Manager']):
+                        manager_id = team_info['Manager Id'][index]
                         info = managers.get_manager_info(manager, manager_id)
                         managers_info.append(info)
 
                 players_info = []
-
                 for player in team_players:
 
                     players_info.append(players.get_player_info(

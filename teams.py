@@ -55,6 +55,10 @@ def get_team_info(team_name, team_id, season):
     team_info["Manager Id"] = parser.retrieve_in_tags("profil/trainer/",
                                                       '">', team_page)
 
+    for key in ['Manager', 'Manager Id']:
+        if isinstance(team_info[key], str):
+            team_info[key] = [team_info[key]]
+
     team_info["Income"] = parser.retrieve_in_tags('class="greentext rechts">',
                                                   "</td>", team_page)
 
