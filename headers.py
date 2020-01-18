@@ -15,8 +15,7 @@ TEAMS = ["Name", "Squad Id", "Season", "Manager", "Manager Id", "Income",
 
 # managers header
 MANAGERS = ["Name", "Id", "Birth Date", "Birth Place", "Nationality",
-            "Avg. term", "Coaching License", "Preferred Formation",
-            "History"]
+            "Avg. term", "Coaching License", "Preferred Formation"]
 
 # mangers history
 MANAGER_HISTORY = ["Manager Id", "Team", "Id", "Appointed", "Contract",
