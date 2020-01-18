@@ -87,5 +87,7 @@ def get_team_info(team_name, team_id, season):
                              season_titles))
     if not season_titles:
         team_info['Titles'] = None
+    else:
+        team_info['Titles'] = ','.join(season_titles)
 
     return team_info
